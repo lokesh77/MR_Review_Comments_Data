@@ -1,0 +1,38 @@
+
+# General information:
+
+# default image only for jobs without image set
+image:  ${DOCKER_HOST_PATH}/alpine/git:v2.30.1
+
+.shared_scm_runner_medium3:
+  tags:
+    - scm-eks-shared-medium3
+
+variables:
+# -- flags for enabling and disabling jobs  ---------------------------------
+  TOKEN: $GITLAB_API_TOKEN
+  SPRINT_START_DATE: "2025-01-15T00:00:00Z"  # yy-mm-dd format 
+  PER_PAGE: "200"
+  SPRINT_NAME: "SPRINT 5"
+  FILE_NAME: "PI5SP5-MR-stats-v1.xlsx"
+
+
+fetch_mr-reviews:
+  extends: [ .shared_scm_runner_medium3 ]
+  image: DOCKER_HOST_PATH/customimages/scm/python-gitlab-alpine:3.11.9-4.4.0-3.18.6-2
+  cache:
+    key: "${CI_PROJECT_PATH_SLUG}"
+    paths:
+      - .cache/pip
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  script:
+    - pip install --upgrade pip
+    - pip install requests
+    - pip install openpyxl
+    - python fetch_mr_reviews.py
+  artifacts:
+    paths:
+      - "*.json"
+      - "*.xlsx"
+    expire_in: 1 week
