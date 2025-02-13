@@ -1,6 +1,4 @@
-# SAMPLE_SCRIPT
-
-This project contains all Additional Utlities for DevOps based Scripts Automations. 
+# MR_Review_Data
 
 <<Workflow>>
 Implemented Pipeline flow to generate MR_Review_Data for Entire sprint
