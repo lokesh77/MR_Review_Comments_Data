@@ -9,12 +9,20 @@ image:  ${DOCKER_HOST_PATH}/alpine/git:v2.30.1
     - scm-eks-shared-medium3
 
 variables:
-# -- flags for enabling and disabling jobs  ---------------------------------
+  # Use Pre-Filled variables
+  SPRINT_START_DATE:
+    value: ""
+    description: Please Enter Sprint Start Date in this format "2025-03-10T00:00:00Z"
+  SPRINT_NAME:
+    value: ""
+    description: Enter name of Sprint in this format "SPRINT 3"
+  FILE_NAME:
+    value: ""
+    description: Enter Correct file name in this format "PI6SP3-MR-stats-v1.xlsx"
+  # General variables to execute pipeline
   TOKEN: $GITLAB_API_TOKEN
-  SPRINT_START_DATE: "2025-01-15T00:00:00Z"  # yy-mm-dd format 
   PER_PAGE: "200"
-  SPRINT_NAME: "SPRINT 5"
-  FILE_NAME: "PI5SP5-MR-stats-v1.xlsx"
+
 
 
 fetch_mr-reviews:
